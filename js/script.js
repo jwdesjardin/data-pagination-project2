@@ -60,7 +60,7 @@ const addPagination = (list) => {
    const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
 
-   // loop through and make a button for amount calculated prviously
+   // loop through and make the number of buttons calculated previously
    for (let i = 1; i <= numButtons; i++){
       const newHTML = `
       <li>
@@ -98,8 +98,6 @@ const addPagination = (list) => {
 showPage(data, 1);
 addPagination(data);
 
-
-
 //Extra Credit
 //add search bar in header
 const searchBar = `
@@ -110,16 +108,15 @@ const searchBar = `
 `;
 document.querySelector('header').insertAdjacentHTML('beforeend', searchBar);
 
-
 //searchbar functionality
 const filterData = (eventValue) => {
 
    //handle case sensitive search 
    const text = eventValue.toLowerCase().trim();
    
-
    // filter data if input value matches first or last
    const filtered = data.filter(student => {
+      // search if text can be found in the student's name
       const name = `${student.name.first.toLowerCase()} ${student.name.last.toLowerCase()}`;
       return name.includes(text);
    });
