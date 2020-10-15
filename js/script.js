@@ -74,15 +74,18 @@ const addPagination = (list) => {
    // add event listener for click on buttons within button list
    linkList.addEventListener('click', (e) => {
       if (e.target.type === 'button'){
+         // traverse dom and set connection points
+         const button = e.target;
+         const li = button.parentElement;
+         const ul = li.parentElement;
 
-         //remove active class from all buttons
-         const allNodes = e.target.parentElement.parentElement.childNodes;
-         allNodes.forEach((node) => {
-            if(node.nodeType === 1) {
-               node.firstElementChild.classList.remove('active');
-            }
-         })
+         // search ul and get all elements with active class
+         const children = ul.getElementsByClassName('active');
 
+         //loop through buttons and remove active class
+         for (let i = 0; i < children.length; i++)
+         children[i].classList.remove('active');
+         
          // add active to the current button
          e.target.classList.add('active');
          //refresh page
@@ -110,9 +113,15 @@ document.querySelector('header').insertAdjacentHTML('beforeend', searchBar);
 
 //searchbar functionality
 const filterData = (eventValue) => {
+
+   //handle case sensitive search 
+   const text = eventValue.toLowerCase().trim();
+   
+
    // filter data if input value matches first or last
    const filtered = data.filter(student => {
-      return student.name.first.includes(eventValue) || student.name.last.includes(eventValue);
+      const name = `${student.name.first.toLowerCase()} ${student.name.last.toLowerCase()}`;
+      return name.includes(text);
    });
 
    // refresh page with filtered results if they exist
