@@ -4,19 +4,11 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 /*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
-*/
-
-
-/*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
-
 const showPage = (list, page) => {
-   // set indexs for this page based on our page parameter
+   // set indexes for this page based on our page parameter
    const startIndex = (page * 9) - 9;
    const endIndex = (page * 9);
 
@@ -69,11 +61,12 @@ const addPagination = (list) => {
       `;
       linkList.insertAdjacentHTML('beforeend', newHTML);
    }
+   //make first button active
    linkList.firstElementChild.firstElementChild.classList.add('active');
 
    // add event listener for click on buttons within button list
    linkList.addEventListener('click', (e) => {
-      if (e.target.type === 'button'){
+      if (e.target.tagName === 'BUTTON'){
          // traverse dom and set connection points
          const button = e.target;
          const li = button.parentElement;
@@ -87,12 +80,14 @@ const addPagination = (list) => {
          children[i].classList.remove('active');
          
          // add active to the current button
-         e.target.classList.add('active');
+         button.classList.add('active');
+         
          //refresh page
          showPage(list, e.target.textContent);
       }
    })
 }
+
 
 // Calls functions when page loads
 showPage(data, 1);
@@ -138,12 +133,12 @@ const filterData = (eventValue) => {
    
 }
 
-//EVENT - listens for keyup on filter input and passes value of input to function
+//EVENT - listens for keyup on FILTER INPUT and passes value of input to function
 document.querySelector('#search').addEventListener('keyup', (e) => {
    filterData(e.target.value)
 });
 
-//EVENT - listens for click on filter button and passes value of input to function
+//EVENT - listens for click on FILTER BUTTON and passes value of input to function
 document.querySelector('.student-search button').addEventListener('click', (e) => {
    filterData(e.target.parentElement.previousElementSibling.value);
 });
